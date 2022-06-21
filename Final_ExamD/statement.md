@@ -1,5 +1,5 @@
-#题目描述
-####注意：请合理安排考试时间，可以选择实现部分任务以获得部分分数
+# 题目描述
+#### 注意：请合理安排考试时间，可以选择实现部分任务以获得部分分数
 
 小明想最近了解到了可持久化数据结构（persistent data structure）的概念，因此想仿照着设计一个可持久化的vector容器，称为PVector。
 
@@ -87,7 +87,7 @@ c10.update(b6);                   // Output: cannot update: conflicts found
 a2.update(c9);                    // Output: cannot update: conflicts found
 c12.update(c8);                   // Output: cannot update: conflicts found
 ~~~
-#提示
+# 提示
 小明已经实现了部分代码，可以在下方链接中下载，你可以基于小明的代码修改，也可以完全自己来实现。他的实现思路如下：
 小明完全不会使用vector容器，而是使用装饰器模式来避免复制原有对象。具体来说，每层装饰器只记录修改的部分，通过重写覆盖T get(int index)函数来修改元素访问时返回的内容。
 由于PVector是一个对象，因此无法直接使用虚函数。他在PVector内部维护一个指针，指向真正的容器对象Data。
@@ -104,7 +104,7 @@ c12.update(c8);                   // Output: cannot update: conflicts found
 提交格式
 你只需提交pvector.h。我们会将你提交的文件和我们预先设置好的main_int.cpp， main_point.cpp、point.h、Makefile一起编译运行。
 
-#评分标准
+# 评分标准
 我们共有3个subtask：
 
 SUBTASK1（25分）：你需要实现push_back, set, 流输出, 下标访问操作。保证所有PVector长度不超过100，操作不超过100。
