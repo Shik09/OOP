@@ -19,6 +19,7 @@ cout << a4 << endl;               // Output: [1, 3]
 cout << a4[1] << endl;            // Output: 3
 auto a5 = a4.push_back(5);        // a5 = [1, 3, 5]
 cout << a5 << endl;               // Output: [1, 3, 5]
+~~~
 进一步，小明希望这些操作的内存与时间开销不要太大，即对于每一个push_back或set操作，应该只记录修改，不能将整个PVector都复制一遍。 为了测试他的代码，他使用自定义类型Point构造了PVector<Point>。每个Point包含x, y两个坐标，并且重载了输出流运算符（具体可以下载代码查看）。同时，对于Point类型，小明会检查所有Point对象的构造、析构次数。你需要满足：
 
 Point对象的构造次数不应该超过给定的参考值，在subtask1中是push_back和set的操作数量的4倍。
@@ -32,7 +33,7 @@ Subtask2
 
 Point对象的构造次数不应该超过给定的参考值，在subtask2中是push_back和set的操作数量的4倍。
 （如果你对以下代码的输出有疑惑，我们提供一张图片展现了测试代码中各个对象的关系，请在最后的链接中下载）
-
+~~~C++
 // Subtask 2
 // Codes after Subtask 1
 auto b4 = a5.undo();             // b4 = [1, 3]
@@ -40,6 +41,7 @@ auto b2 = b4.undo();             // b3 = [1]
 auto b1 = b2.undo();             // b1 = []
 b1.undo();                       // Output: cannot undo
 auto b6 = b2.push_back(0);       // b6 = [1, 0]
+~~~
 Subtask3
 最后，小明想添加一个终极功能：合并两个PVector的修改。如果对于同一个PVector pv_origin，做出了不同的修改后分别得到了pv_a和pv_b。那么使用pv_merge = pv_a.update(pv_b)将得到综合两个修改的结果。具体来说：
 
@@ -66,7 +68,7 @@ pv_a.update(pv_b)将产生冲突，因为我们认为两次push_back(1)都增加
 Point对象的构造次数不应该超过给定的参考值，在subtask3中是 (push_back和set的操作数量 + update所涉及操作数量 ) * 4。
 其中，update所涉及的操作数量是指，从pv_origin到pv_b、pv_a之间的所有操作数量之和（操作中push_back,set,update都只计一次）。
 （如果你对以下代码的输出有疑惑，我们提供一张图片展现了测试代码中各个对象的关系，请在最后的链接中下载。）
-
+~~~C++
 // Subtask 3
 // Codes after Subtask 2
 auto c7 = a3.update(a5);        // c7 = [2, 3, 5]
@@ -84,6 +86,7 @@ a4.update(b6);                    // Output: cannot update: conflicts found
 c10.update(b6);                   // Output: cannot update: conflicts found
 a2.update(c9);                    // Output: cannot update: conflicts found
 c12.update(c8);                   // Output: cannot update: conflicts found
+~~~
 #提示
 小明已经实现了部分代码，可以在下方链接中下载，你可以基于小明的代码修改，也可以完全自己来实现。他的实现思路如下：
 小明完全不会使用vector容器，而是使用装饰器模式来避免复制原有对象。具体来说，每层装饰器只记录修改的部分，通过重写覆盖T get(int index)函数来修改元素访问时返回的内容。
@@ -101,7 +104,7 @@ c12.update(c8);                   // Output: cannot update: conflicts found
 提交格式
 你只需提交pvector.h。我们会将你提交的文件和我们预先设置好的main_int.cpp， main_point.cpp、point.h、Makefile一起编译运行。
 
-评分标准
+#评分标准
 我们共有3个subtask：
 
 SUBTASK1（25分）：你需要实现push_back, set, 流输出, 下标访问操作。保证所有PVector长度不超过100，操作不超过100。
@@ -133,4 +136,3 @@ main_point样例。
 后2个测试点最低得分为50时（代表出现内存泄露），获得75% subtask得分。
 后2个测试点均正确时，获得100% subtask得分。
 Subtask中的每个测试点得分之和不等于该subtask总分属于正常现象。
-~~~
